@@ -1,0 +1,3 @@
+export const SET_ERRORMSG = 'SET_ERRORMSG'
+
+export const SET_USERINFO = 'SET_USERINFO'

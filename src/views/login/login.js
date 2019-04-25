@@ -1,6 +1,8 @@
 import React from 'react'
 import {Button} from 'antd-mobile'
 
+import Logo from '../../components/logo'
+
 import {connect} from 'react-redux'
 const mapStateToProps = state => {
   return {
@@ -17,7 +19,9 @@ const mapDispatchToProps = dispatch => {
 class Login extends React.Component {
   render() {
     return (
-      <div>Hello World {this.props.count}<Button type="primary">Click</Button></div>
+      <div>
+        <Logo/>
+        Hello World {this.props.count}<Button type="primary">Click</Button></div>
     )
   }
 }

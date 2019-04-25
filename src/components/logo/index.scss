@@ -1,0 +1,8 @@
+@import '../../assets/styles/global.scss';
+
+.logo-container{
+  display: flex;
+  @include center();
+  margin-top: 30px;
+  margin-bottom: 20px; 
+}

@@ -8,6 +8,17 @@ const userSchema = new mongoose.Schema({
   pwd:{
     type:String,
     require: true
+  },
+  type:{
+    type:String
+  },
+  createdAt:{
+    type:String,
+    default:Date.now()
+  },
+  updateAt:{
+    type:String,
+    default:Date.now()
   }
 })
 
