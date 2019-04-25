@@ -5,7 +5,7 @@ const config = require('../utils/config')
 exports.connect = () => {
   return new Promise((resolve, reject) => {
     mongoose.connect(config.dbs, {
-      useNewUrlParse:true
+      useNewUrlParser:true
     })
     const db = mongoose.connection
 
