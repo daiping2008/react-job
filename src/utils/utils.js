@@ -1,4 +1,4 @@
 
-export const getRedirectPath = ({type}) => {
+export const getRedirectPath = (type) => {
   return (type === 'boss' ? '/boss' : '/genius')
 }

@@ -1,7 +1,6 @@
 import React from 'react'
 import {Button, WhiteSpace, InputItem, List, Radio} from 'antd-mobile'
 import {Redirect} from 'react-router-dom'
-import './index.scss'
 
 import {connect} from 'react-redux'
 
@@ -35,6 +34,7 @@ class Register extends React.Component {
       type:'genius'
     }
     this.handleRegister = this.handleRegister.bind(this)
+    this.goLogin = this.goLogin.bind(this)
   }
   render() {
     const {type} = this.state
@@ -47,18 +47,23 @@ class Register extends React.Component {
           {errMsg ? <div className='error-msg'>{errMsg}</div> : ''}
           <InputItem onChange={v => this.handleChange('username', v)}>用户名</InputItem>
           <WhiteSpace/>
-          <InputItem onChange={v => this.handleChange('pwd', v)}>密码</InputItem>
+          <InputItem onChange={v => this.handleChange('pwd', v)} type='password' >密码</InputItem>
           <WhiteSpace/>
-          <InputItem onChange={v => this.handleChange('cpwd',v)}>确认密码</InputItem>
+          <InputItem onChange={v => this.handleChange('cpwd',v)} type='password'>确认密码</InputItem>
           <WhiteSpace/>
           <Radio>
-            <Radio.RadioItem checked={type==='genius'} onChange={() => this.handleChange(type, 'genius')}>牛人</Radio.RadioItem>
-            <Radio.RadioItem checked={type==='boss'} onChange={() => this.handleChange(type, 'boss')}>BOSS</Radio.RadioItem>
+            <Radio.RadioItem checked={type==='genius'} onChange={() => this.handleChange('type', 'genius')}>牛人</Radio.RadioItem>
+            <Radio.RadioItem checked={type==='boss'} onChange={() => this.handleChange('type', 'boss')}>BOSS</Radio.RadioItem>
           </Radio>
           <Button type='primary' onClick={this.handleRegister} >注册</Button>
+          <div className='go-info' onClick={this.goLogin}>去登录</div>
         </List>
       </div>
     )
+  }
+
+  goLogin() {
+    this.props.history.push('/login')
   }
 
   handleRegister() {

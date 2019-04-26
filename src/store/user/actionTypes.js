@@ -1,3 +1,5 @@
 export const SET_ERRORMSG = 'SET_ERRORMSG'
 
 export const SET_USERINFO = 'SET_USERINFO'
+
+export const REGISTER_SUCC = 'REGISTER_SUCC'

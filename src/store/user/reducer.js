@@ -1,12 +1,11 @@
 import {fromJS} from 'immutable'
 import {actionTypes} from './'
-// import {getRedirectPath} from '../../utils/utils'
+import {getRedirectPath} from '../../utils/utils'
 const defaultState = fromJS({
   errMsg:'',
   username:'',
   type:'',
-  redirectTo:'',
-  count:1
+  redirectTo:''
 })
 
 export default (state = defaultState, action) => {
@@ -16,13 +15,20 @@ export default (state = defaultState, action) => {
         username:'',
         type:'',
         redirectTo:'',
-        'errMsg': action.msg
+        errMsg: action.msg
       })
     case actionTypes.SET_USERINFO:
       return state.merge({
         username: action.username,
-        type: action.type,
-        redirectTo:'/login',
+        type: action.userType,
+        redirectTo:getRedirectPath(action.userType),
+        errMsg:''
+      })
+    case actionTypes.REGISTER_SUCC:
+      return state.merge({
+        username:'',
+        type:'',
+        redirectTo:getRedirectPath(action.userType),
         errMsg:''
       })
     default:

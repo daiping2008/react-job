@@ -13,9 +13,14 @@ export const setUserinfo = data => ({
   userType:fromJS(data.type)
 })
 
+export const registerSussess = (data) => ({
+  type: actionTypes.REGISTER_SUCC,
+  username: fromJS(data.username),
+  userType:fromJS(data.type)
+})
+
 export const handleRegister = ({username, pwd, cpwd, type}) => {
   return dispatch => {
-    console.log({username, pwd, cpwd, type})
     if (!username || !pwd) {
       return dispatch(errMsg('请输入用户名密码'))
     }
@@ -29,11 +34,24 @@ export const handleRegister = ({username, pwd, cpwd, type}) => {
         if (data.code === 1) {
           return dispatch(errMsg(data.msg))
         }
-          return dispatch(setUserinfo(data.data))
+        return dispatch(setUserinfo(data.data))
       })
       .catch(err => {
         return dispatch(errMsg('服务器出错'))
       })
+  }
+}
+
+export const loginIn = ({username, pwd}) => {
+  return async dispatch => {
+    if (!username ||!pwd) {
+      return dispatch(errMsg('请输入用户名密码'))
+    }
+    const {data} = await axios.post('/user/login', {username, pwd})
+    if (data.code === 1) {
+      return dispatch(errMsg(data.msg))
+    }
+    return dispatch(setUserinfo(data.data))
   }
 }
 
