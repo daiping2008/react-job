@@ -6,7 +6,7 @@ import {BrowserRouter, Route, Switch} from 'react-router-dom'
 
 import Login from './views/login/login'
 import Register from './views/register/register'
-import Genius from './views/genius/genius'
+import Dashboard from './views/dashboard/dashboard'
 import Boss from './views/boss/boss'
 
 import './assets/styles/global.scss'
@@ -18,7 +18,7 @@ function App() {
         <Switch>
           <Route path='/login' component={Login} />
           <Route path='/register' component={Register} />
-          <Route path='/genius' component={Genius} />
+          <Route path='/dashboard' component={Dashboard} />
           <Route path='/boss' component={Boss} />
           <Route path='/' component={Login} />
         </Switch>

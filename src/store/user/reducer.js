@@ -21,7 +21,7 @@ export default (state = defaultState, action) => {
       return state.merge({
         username: action.username,
         type: action.userType,
-        redirectTo:getRedirectPath(action.userType),
+        redirectTo:`/dashboard/${action.userType}`, // 统一跳转到dashboard/页面
         errMsg:''
       })
     case actionTypes.REGISTER_SUCC:
