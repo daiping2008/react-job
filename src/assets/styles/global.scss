@@ -29,5 +29,7 @@ html,body{
 	width: 100%;
 }
 .page-content{
-	padding:45px 5px;
+  position: relative;
+  z-index: 9;
+	margin:45px 5px;
 }

@@ -4,6 +4,8 @@ import {Switch, Route} from 'react-router-dom'
 
 import {connect} from 'react-redux'
 
+import User from './components/user'
+
 function Boss(params) {
   return <h1>Boss</h1>  
 }
@@ -16,13 +18,9 @@ function Msg(params) {
 	return <h1>MSG</h1>
 }
 
-function User(params) {
-	return <h1>User</h1>
-}
-
 const mapStateToProps = state => {
 	return {
-		type:state.get('user').get('type')
+		user:state.get('user').get('user')
 	}
 }
 
@@ -34,7 +32,9 @@ const mapDispatchToProps = dispatch => {
 class Dashboard extends React.Component {
   
   render() {
-		const {type} = this.props
+		const {user} = this.props
+		const newUser = user.toJS()
+		const {type} = newUser
 		// const type = 'genius'
     const navList = [
 			{

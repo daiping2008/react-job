@@ -9,14 +9,12 @@ export const errMsg = msg => ({
 
 export const setUserinfo = data => ({
   type: actionTypes.SET_USERINFO,
-  username: fromJS(data.username),
-  userType:fromJS(data.type)
+  user: fromJS(data),
 })
 
 export const registerSussess = (data) => ({
   type: actionTypes.REGISTER_SUCC,
-  username: fromJS(data.username),
-  userType:fromJS(data.type)
+  user: fromJS(data)
 })
 
 export const handleRegister = ({username, pwd, cpwd, type}) => {
@@ -59,7 +57,18 @@ export const getUserInfo = () => {
   return async dispatch => {
     const {data} = await axios.get('/user/info')
     if (data.code === 1) {
-      return dispatch(errMsg(data.msg))
+      return dispatch(errMsg('')) 
+    }
+    return dispatch(setUserinfo(data.data))
+  }
+}
+
+export const updateUser = ({avator, job, desc}) => {
+  return async dispatch => {
+    console.log({avator, job, desc})
+    const {data} = await axios.post('/user/update', {avator, job, desc})
+    if (data.code === 1) {
+      return dispatch(errMsg('')) 
     }
     return dispatch(setUserinfo(data.data))
   }

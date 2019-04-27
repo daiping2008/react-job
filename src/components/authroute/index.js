@@ -6,7 +6,7 @@ import {actionCreator, actionTypes} from '../../store/user'
 
 const mapStateToProps = state => {
   return {
-    username: state.get('user').get('username')
+    user: state.get('user').get('user')
   }
 }
 
@@ -28,12 +28,13 @@ class Authroute extends React.Component {
   async componentDidMount() {
     const publicViews = ['/login', '/register']
     const {pathname} = this.props.location
-    const {username} = this.props
+    const {user} = this.props
+    const newUser = user.toJS()
 
-    if (publicViews.includes(pathname)) {
+    if (publicViews.indexOf(pathname) >= 0) {
       return null
     }
-    if (username) {
+    if (newUser.username) {
       return null
     } else {
       const res = await this.props.getUserInfo()

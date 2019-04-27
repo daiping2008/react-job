@@ -16,6 +16,28 @@ router.get('/', async ctx => {
   ctx.body = person
 })
 
+router.post('/update', async ctx=> {
+  const {avator, job, desc} = ctx.request.body
+  const userid = ctx.cookies.get(USER_ID)
+  if (!userid) {
+    return ctx.body={code:1}
+  }
+
+  try {
+    const res = await User.findByIdAndUpdate(userid, {avator, job, desc}, _filter)
+    return ctx.body = {
+      code:0,
+      data:Object.assign({}, res, {avator, job, desc}, _filter)
+    }
+  } catch (error) {
+    return ctx.body={
+      code:1,
+      msg:'服务器出错'
+    }
+  }
+  
+})
+
 router.get('/info', async ctx => {
   const userid = ctx.cookies.get(USER_ID)
   if(!userid) {

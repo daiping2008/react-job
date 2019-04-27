@@ -3,8 +3,7 @@ import {actionTypes} from './'
 import {getRedirectPath} from '../../utils/utils'
 const defaultState = fromJS({
   errMsg:'',
-  username:'',
-  type:'',
+  user:{},
   redirectTo:''
 })
 
@@ -12,22 +11,19 @@ export default (state = defaultState, action) => {
   switch(action.type) {
     case actionTypes.SET_ERRORMSG:
       return state.merge({
-        username:'',
-        type:'',
+        user:{},
         redirectTo:'',
         errMsg: action.msg
       })
     case actionTypes.SET_USERINFO:
       return state.merge({
-        username: action.username,
-        type: action.userType,
-        redirectTo:`/dashboard/${action.userType}`, // 统一跳转到dashboard/页面
+        user: action.user,
+        redirectTo:`/dashboard/${action.user.toJS().type}`, // 统一跳转到dashboard/页面
         errMsg:''
       })
     case actionTypes.REGISTER_SUCC:
       return state.merge({
-        username:'',
-        type:'',
+        user:{},
         redirectTo:getRedirectPath(action.userType),
         errMsg:''
       })
