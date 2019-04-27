@@ -55,3 +55,13 @@ export const loginIn = ({username, pwd}) => {
   }
 }
 
+export const getUserInfo = () => {
+  return async dispatch => {
+    const {data} = await axios.get('/user/info')
+    if (data.code === 1) {
+      return dispatch(errMsg(data.msg))
+    }
+    return dispatch(setUserinfo(data.data))
+  }
+}
+

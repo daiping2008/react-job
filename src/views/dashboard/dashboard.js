@@ -76,7 +76,7 @@ class Dashboard extends React.Component {
 				<div className='page-content'>
 					<Switch>
 						{
-							navList.map(v => <Route path={v.path} component={v.component} />)
+							navList.map((v, idx) => <Route key={idx} path={v.path} component={v.component} />)
 						}
 					</Switch>
 				</div>

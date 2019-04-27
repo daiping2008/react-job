@@ -6,11 +6,36 @@ const {md5} = require('../utils/utils')
 
 const USER_ID = 'userid'
 
+// 把密码过滤掉
+const _filter = {pwd:0,_v:0} 
+
 router.prefix('/user')
 
 router.get('/', async ctx => {
   const person = await User.find({})
   ctx.body = person
+})
+
+router.get('/info', async ctx => {
+  const userid = ctx.cookies.get(USER_ID)
+  if(!userid) {
+    return ctx.body = {
+      code:1,
+      msg:'用户没登录'
+    }
+  }
+
+  const res = await User.findOne({_id:userid}, _filter)
+  if (!res) {
+    return ctx.body = {
+      code:1,
+      msg: '用户不存在'
+    }
+  }
+  return ctx.body = {
+    code:0,
+    data: res
+  }
 })
 
 router.post('/login', async ctx => {
@@ -65,7 +90,6 @@ router.post('/register', async ctx => {
       msg: '服务器出错'
     }
   }
- 
 })
 
 module.exports = router
