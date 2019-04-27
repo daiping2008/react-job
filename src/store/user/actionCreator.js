@@ -65,12 +65,12 @@ export const getUserInfo = () => {
 
 export const updateUser = (params) => {
   return async dispatch => {
-    console.log(params)
     const {data} = await axios.post('/user/update', params)
     if (data.code === 1) {
       return dispatch(errMsg('')) 
     }
-    return dispatch(setUserinfo(data.data))
+    dispatch(setUserinfo(data.data))
+    return data.data
   }
 }
 

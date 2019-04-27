@@ -11,9 +11,19 @@ const _filter = {pwd:0,_v:0}
 
 router.prefix('/user')
 
+// 测试代码之后删除
 router.get('/', async ctx => {
   const person = await User.find({})
   ctx.body = person
+})
+
+router.get('/list', async ctx => {
+  const {type} = ctx.request.query
+  const res = await User.find({type})
+  return ctx.body = {
+    code:0,
+    data: res
+  }
 })
 
 router.post('/update', async ctx=> {
@@ -27,7 +37,7 @@ router.post('/update', async ctx=> {
     const res = await User.findByIdAndUpdate(userid, body, _filter)
     return ctx.body = {
       code:0,
-      data:Object.assign({}, res, body, _filter)
+      data:Object.assign(res, body, _filter)
     }
   } catch (error) {
     return ctx.body={
@@ -56,7 +66,7 @@ router.get('/info', async ctx => {
   }
   return ctx.body = {
     code:0,
-    data: res
+    data: Object.assign(res, _filter)
   }
 })
 
@@ -78,10 +88,7 @@ router.post('/login', async ctx => {
   ctx.cookies.set(USER_ID, res._id)
   return ctx.body = {
     code:0,
-    data:{
-      username: res.username,
-      type: res.type
-    }
+    data:Object.assign(res, _filter)
   }
 })
 
@@ -101,10 +108,7 @@ router.post('/register', async ctx => {
     ctx.cookies.set(USER_ID, res._id)
     return ctx.body = {
       code:0,
-      data:{
-        username: res.username,
-        type: res.type
-      }
+      data:Object.assign(res, _filter)
     }
   } catch(err) {
     return ctx.body = {

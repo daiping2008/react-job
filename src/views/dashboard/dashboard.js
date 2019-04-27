@@ -5,14 +5,8 @@ import {Switch, Route} from 'react-router-dom'
 import {connect} from 'react-redux'
 
 import User from './components/user'
-
-function Boss(params) {
-  return <h1>Boss</h1>  
-}
-
-function Genius(params) {
-  return <h1>Genius</h1>
-}
+import BossList from './components/bossList'
+import GeniusList from './components/geniusList'
 
 function Msg(params) {
 	return <h1>MSG</h1>
@@ -42,7 +36,7 @@ class Dashboard extends React.Component {
 				text:'牛人',
 				icon:'boss',
 				title:'牛人列表',
-				component:Boss,
+				component:GeniusList,
 				hide:type==='genius'
 			},
 			{
@@ -50,7 +44,7 @@ class Dashboard extends React.Component {
 				text:'boss',
 				icon:'job',
 				title:'BOSS列表',
-				component:Genius,
+				component:BossList,
 				hide:type==='boss'
 			},
 			{

@@ -5,8 +5,8 @@ import {connect} from 'react-redux'
 
 import Genius from '../../../components/genius'
 import Boss from '../../../components/boss'
-import browserCookie  from 'browser-cookies'
-// import {config} from '../../../utils/config'
+import cookie  from 'react-cookies'
+import {config} from '../../../utils/config'
 // import {actionCreator} from '../../../store/user'
 
 import './index.scss'
@@ -80,9 +80,7 @@ class User extends React.Component {
     Modal.alert('注销', '确认退出登录吗？', [
       { text: '取消', onPress: () => {}, style: 'default' },
       { text: '确认', onPress: () => {
-        // 这里清除不了cookies后面在解决
-        console.log(browserCookie)
-        browserCookie.erase()
+        cookie.remove(config.USER_ID)
       }},
     ])
   }
