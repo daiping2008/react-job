@@ -63,10 +63,10 @@ export const getUserInfo = () => {
   }
 }
 
-export const updateUser = ({avator, job, desc}) => {
+export const updateUser = (params) => {
   return async dispatch => {
-    console.log({avator, job, desc})
-    const {data} = await axios.post('/user/update', {avator, job, desc})
+    console.log(params)
+    const {data} = await axios.post('/user/update', params)
     if (data.code === 1) {
       return dispatch(errMsg('')) 
     }

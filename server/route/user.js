@@ -17,17 +17,17 @@ router.get('/', async ctx => {
 })
 
 router.post('/update', async ctx=> {
-  const {avator, job, desc} = ctx.request.body
+  const body = ctx.request.body
   const userid = ctx.cookies.get(USER_ID)
   if (!userid) {
     return ctx.body={code:1}
   }
 
   try {
-    const res = await User.findByIdAndUpdate(userid, {avator, job, desc}, _filter)
+    const res = await User.findByIdAndUpdate(userid, body, _filter)
     return ctx.body = {
       code:0,
-      data:Object.assign({}, res, {avator, job, desc}, _filter)
+      data:Object.assign({}, res, body, _filter)
     }
   } catch (error) {
     return ctx.body={

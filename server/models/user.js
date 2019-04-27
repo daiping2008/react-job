@@ -33,7 +33,7 @@ const userSchema = new mongoose.Schema({
     type: String
   },
   // 薪资
-  'money':{
+  money:{
     type: String
   },
   // 创建时间

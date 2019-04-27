@@ -4,9 +4,9 @@ import {Result, List, WhiteSpace, Modal} from 'antd-mobile'
 import {connect} from 'react-redux'
 
 import Genius from '../../../components/genius'
-
+import Boss from '../../../components/boss'
 import browserCookie  from 'browser-cookies'
-import {config} from '../../../utils/config'
+// import {config} from '../../../utils/config'
 // import {actionCreator} from '../../../store/user'
 
 import './index.scss'
@@ -40,12 +40,16 @@ class User extends React.Component {
         <Result
           img={this.setAvator()}
           title={newUser.username}
+          message={newUser.company && newUser.company}
         />
-        <List renderHeader={()=> '个人信息'}>
-          <List.Item >
-            {newUser.job}
-            {newUser.desc&&newUser.desc.split('\n').map(v=>(<List.Item.Brief key={v}>{v}</List.Item.Brief>))}
-          </List.Item>
+        <List renderHeader={() => '个人信息'}>
+          {newUser.job&&(
+            <List.Item >
+              {newUser.job && newUser.job}
+              {newUser.desc && newUser.desc.split('\n').map(v=>(<List.Item.Brief key={v}>{v}</List.Item.Brief>))}
+              {newUser.money && <List.Item.Brief>{newUser.money}</List.Item.Brief>}
+            </List.Item>
+          )}
           <List.Item arrow="horizontal" onClick={this.setUserinfo}>
             完善信息
           </List.Item>
@@ -55,15 +59,16 @@ class User extends React.Component {
           <List.Item onClick={this.logout} >退出登录</List.Item>
         </List>
         {
-          modal ? (<div className='user-modal'>
-            <Genius 
-              avator={newUser.avator}
-              hideModal={ () => this.setState({modal:false}) }
-            />
-          </div>) : null
-
+          modal ? 
+            <div className='user-modal'>
+              {
+                newUser.type==='boss' ? 
+                  <Boss hideModal={ () => this.setState({modal:false}) } /> 
+                  : <Genius hideModal={ () => this.setState({modal:false}) } />
+              }
+            </div>
+            : null
         }
-        
       </div>
     )
   }
@@ -77,7 +82,7 @@ class User extends React.Component {
       { text: '确认', onPress: () => {
         // 这里清除不了cookies后面在解决
         console.log(browserCookie)
-        browserCookie.erase(config.USER_ID)
+        browserCookie.erase()
       }},
     ])
   }
