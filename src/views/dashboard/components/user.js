@@ -75,6 +75,7 @@ class User extends React.Component {
     Modal.alert('注销', '确认退出登录吗？', [
       { text: '取消', onPress: () => {}, style: 'default' },
       { text: '确认', onPress: () => {
+        // 这里清除不了cookies后面在解决
         console.log(browserCookie)
         browserCookie.erase(config.USER_ID)
       }},
