@@ -1,7 +1,8 @@
-import React, {Fragment} from 'react'
-import { Card, WhiteSpace } from 'antd-mobile'
+import React from 'react'
 
 import {connect} from 'react-redux'
+
+import CartItem from '../../../components/cardItem'
 
 import {actionCreator} from '../../../store/dashboard'
 
@@ -27,24 +28,7 @@ class BossList extends React.Component {
       <div style={{paddingTop:'10px'}}>
         {
           newList.length>0 ? 
-            (newList.map((v, idx)=>(
-              <Fragment key={idx}>
-                <Card onClick={()=>console.log(idx)}>
-                  <Card.Header
-                    title={v.username}
-                    thumb={require(`../../../assets/img/avators/${v.avator?v.avator:'boy'}.png`)}
-                  />
-                  <Card.Body>
-                    {v.type==='boss'? <div>公司:{v.company}</div> :null}
-                    {
-                      v.desc&& v.desc.split('\n').map(d=><div key={d}>{d}</div>)
-                    }
-                    {v.type==='boss'? <div>薪资:{v.money}</div> :null}
-                  </Card.Body>
-                </Card>
-                <WhiteSpace/>
-              </Fragment>
-            ))) :
+            newList.map((v, idx) => <CartItem key={idx} data={v} />) :
             null
         }
       </div>
