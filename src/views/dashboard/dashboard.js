@@ -74,7 +74,7 @@ class Dashboard extends React.Component {
 						}
 					</Switch>
 				</div>
-				<TabBar tabBarPosition='bottom'>
+				<TabBar>
 					{
 						newNavList.map(v => (
 							<TabBar.Item

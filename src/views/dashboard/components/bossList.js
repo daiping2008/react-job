@@ -29,7 +29,7 @@ class BossList extends React.Component {
           newList.length>0 ? 
             (newList.map((v, idx)=>(
               <Fragment key={idx}>
-                <Card>
+                <Card onClick={()=>console.log(idx)}>
                   <Card.Header
                     title={v.username}
                     thumb={require(`../../../assets/img/avators/${v.avator?v.avator:'boy'}.png`)}

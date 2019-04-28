@@ -1,5 +1,5 @@
 import React from 'react'
-import {Result, List, WhiteSpace, Modal} from 'antd-mobile'
+import {Result, List, WhiteSpace, Modal, Button} from 'antd-mobile'
 
 import {connect} from 'react-redux'
 
@@ -55,9 +55,7 @@ class User extends React.Component {
           </List.Item>
         </List>
         <WhiteSpace/>
-        <List>
-          <List.Item onClick={this.logout} >退出登录</List.Item>
-        </List>
+        <Button type='primary' onClick={this.logout} >退出登录</Button>
         {
           modal ? 
             <div className='user-modal'>

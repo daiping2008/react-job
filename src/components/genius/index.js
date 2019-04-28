@@ -6,7 +6,7 @@ import {connect} from 'react-redux'
 import {actionCreator} from '../../store/user'
 
 import AvatorSelect from '../avatorSelect'
-
+import HocForm from '../../components/hoc/hocForm'
 const mapStateToProps = state => {
   return {}
 }
@@ -19,6 +19,7 @@ const mapDispatchToProps = dispatch => {
   }
 }
 @connect(mapStateToProps, mapDispatchToProps)
+@HocForm
 class Genius extends React.Component{
   constructor(props){
     super(props)
@@ -31,17 +32,18 @@ class Genius extends React.Component{
     this.selectAvator = this.selectAvator.bind(this)
   }
   render() {
+    const {handlerChange} = this.props
     return (
       <div>
         <NavBar
-          icon={<Icon type='left' />}
+          icon={<Icon type='left' size='lg' />}
           onLeftClick={() => this.props.hideModal()}
         >牛人信息完善页面</NavBar>
-        <div className='page-content'>
+        <div>
           <AvatorSelect selectAvator={this.selectAvator} />
-          <InputItem onChange={v => this.handlerChange('job', v)}>求职岗位</InputItem>
+          <InputItem onChange={v => handlerChange('job', v)}>求职岗位</InputItem>
           <TextareaItem
-            onChange= {v => this.handlerChange('desc', v)}
+            onChange= {v => handlerChange('desc', v)}
             rows={3}
             title='个人见解'
           ></TextareaItem>
@@ -52,15 +54,9 @@ class Genius extends React.Component{
   }
 
   updateUser() {
-    const {avator, job, desc} = this.state
+    const {avator, job, desc} = this.props.state
     this.props.updateUser({avator, job, desc})
     this.props.hideModal()
-  }
-
-  handlerChange(type, value){
-    this.setState({
-      [type]: value
-    })
   }
 
   selectAvator(avator) {

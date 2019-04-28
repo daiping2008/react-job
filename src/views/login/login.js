@@ -3,7 +3,7 @@ import {Button, List, InputItem, WhiteSpace} from 'antd-mobile'
 import {Redirect} from 'react-router-dom'
 
 import Logo from '../../components/logo'
-
+import HocForm from '../../components/hoc/hocForm'
 import {actionCreator} from '../../store/user'
 
 import {connect} from 'react-redux'
@@ -24,19 +24,16 @@ const mapDispatchToProps = dispatch => {
   mapStateToProps,
   mapDispatchToProps
 )
+@HocForm
 class Login extends React.Component {
   constructor(props){
     super(props)
-    this.state = {
-      username:'',
-      pwd:''
-    }
     this.loginIn = this.loginIn.bind(this)
     this.goRegister = this.goRegister.bind(this)
   }
 
   render() {
-    const {errMsg, redirectTo} = this.props
+    const {errMsg, redirectTo, handlerChange} = this.props
     return (
       <div>
         {
@@ -48,9 +45,9 @@ class Login extends React.Component {
             errMsg ? <div className='error-msg'>{errMsg}</div> : null
           }
           
-          <InputItem onChange = {v => this.handleChange('username', v)}>用户名</InputItem>
+          <InputItem onChange = {v => handlerChange('username', v)}>用户名</InputItem>
           <WhiteSpace/>
-          <InputItem onChange = { v => this.handleChange('pwd', v)} type='password'>密码</InputItem>
+          <InputItem onChange = { v => handlerChange('pwd', v)} type='password'>密码</InputItem>
           <WhiteSpace/>
           <Button type='primary' onClick={this.loginIn} >登录</Button>
           <div className="go-info" onClick={this.goRegister} >前往注册</div>
@@ -64,14 +61,8 @@ class Login extends React.Component {
   }
 
   loginIn() {
-    const {username, pwd} = this.state
+    const {username, pwd} = this.props.state
     this.props.loginIn({username, pwd})
-  }
-
-  handleChange(type, value) {
-    this.setState({
-      [type]: value
-    })
   }
 }
 

@@ -2,7 +2,7 @@ import React from 'react'
 import {NavBar,Icon,InputItem, TextareaItem, Button} from 'antd-mobile'
 import {connect} from 'react-redux'
 import AvatorSelect from '../avatorSelect'
-
+import HocForm from '../../components/hoc/hocForm'
 import {actionCreator} from '../../store/user'
 
 const mapStateToProps = state => {
@@ -17,31 +17,24 @@ const mapDispatchToProps = dispatch => {
   }
 }
 @connect(mapStateToProps, mapDispatchToProps)
+@HocForm
 class Boss extends React.Component {
-  constructor(props){
-    super(props)
-    this.state = {
-      avator:'',
-      job:'',
-      company:'',
-      money:'',
-      desc:''
-    }
-  }
+
   render() {
+    const {handlerChange} = this.props
     return (
       <div>
         <NavBar
           icon={<Icon type='left' size='lg' />}
           onLeftClick={()=>{this.props.hideModal()}}
         >BOSS信息完善页面</NavBar>
-        <div className='page-content'>
+        <div>
           <AvatorSelect selectAvator={avator => {this.setState({avator})}} />
-          <InputItem onChange={v=>this.onChange('job', v)}>招聘职位</InputItem>
-          <InputItem onChange={v=>this.onChange('company', v)}>公司名称</InputItem>
-          <InputItem onChange={v=>this.onChange('money', v)}>职位薪资</InputItem>
+          <InputItem onChange={v=>handlerChange('job', v)}>招聘职位</InputItem>
+          <InputItem onChange={v=>handlerChange('company', v)}>公司名称</InputItem>
+          <InputItem onChange={v=>handlerChange('money', v)}>职位薪资</InputItem>
           <TextareaItem
-            onChange={v=>this.onChange('desc', v)}
+            onChange={v=>handlerChange('desc', v)}
             rows={3}
             autoHeight
             title='职位要求'
@@ -51,13 +44,8 @@ class Boss extends React.Component {
       </div>
     )
   }
-  onChange(type, value) {
-    this.setState({
-      [type]: value
-    })
-  }
   updateUser() {
-    const {avator, job, company, money, desc} = this.state
+    const {avator, job, company, money, desc} = this.props.state
     this.props.updateUser({avator, job, company, money, desc})
     this.props.hideModal()
   }
