@@ -45,3 +45,10 @@ html,body{
   right: 0;
   bottom: 0;
 }
+
+.am-list-item.chat-right .am-list-line .am-list-content{
+  text-align: right;
+}
+.am-list-item.chat-right .am-list-line .am-list-extra{
+  flex-basis: 35px;
+}

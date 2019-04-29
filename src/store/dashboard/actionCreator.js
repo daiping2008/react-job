@@ -8,6 +8,11 @@ export const setList = data => ({
   data: fromJS(data)
 })
 
+export const setSelectItem = data => ({
+  type: actionTypes.SET_SELECTITEM,
+  data: fromJS(data)
+})
+
 export const getDashBoardList = (type) => {
   return async dispatch => {
     const {data} = await axios.get(`/user/list?type=${type}`)

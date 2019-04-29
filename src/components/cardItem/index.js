@@ -1,13 +1,27 @@
 import React,{Fragment} from 'react'
 import {Card, WhiteSpace} from 'antd-mobile'
 import {withRouter} from 'react-router-dom'
+import {connect} from 'react-redux'
+
+import {actionCreator} from '../../store/dashboard'
+
+@connect(
+  null,
+  dispatch => {
+    return {
+      setSelectItem(data) {
+        return dispatch(actionCreator.setSelectItem(data))
+      }
+    }
+  }
+)
 @withRouter
 class CardItem extends React.Component {
   render() {
     const {data} = this.props
     return (
       <Fragment>
-        <Card onClick={()=>this.props.history.push(`/chat/${data._id}`)}>
+        <Card onClick={()=>this.goChat(data)}>
           <Card.Header
             title={data.username}
             thumb={require(`../../assets/img/avators/${data.avator?data.avator:'boy'}.png`)}
@@ -23,6 +37,10 @@ class CardItem extends React.Component {
         <WhiteSpace/>
       </Fragment>
     )
+  }
+  goChat(data) {
+    this.props.setSelectItem(data)
+    this.props.history.push(`/chat/${data._id}`)
   }
 }
 

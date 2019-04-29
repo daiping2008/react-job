@@ -8,25 +8,36 @@ import User from './components/user'
 import BossList from './components/bossList'
 import GeniusList from './components/geniusList'
 
+import {actionCreator} from '../../store/chat'
+
 function Msg(params) {
 	return <h1>MSG</h1>
 }
 
 const mapStateToProps = state => {
 	return {
-		user:state.get('user').get('user')
+		user:state.get('user').get('user'),
+		unread:state.get('chat').get('unread'),
+		chatmsg:state.get('chat').get('chatmsg')
 	}
 }
 
 const mapDispatchToProps = dispatch => {
-	return {}
+	return {
+		getChatMsg() {
+			return dispatch(actionCreator.getChatMsg())
+		},
+		recvMsg() {
+			return dispatch(actionCreator.recvMsg())
+		}
+	}
 }
 
 @connect(mapStateToProps, mapDispatchToProps)
 class Dashboard extends React.Component {
   
   render() {
-		const {user} = this.props
+		const {user, unread} = this.props
 		const newUser = user.toJS()
 		const {type} = newUser
 		// const type = 'genius'
@@ -83,6 +94,7 @@ class Dashboard extends React.Component {
 								icon={{uri:require(`./img/${v.icon}.png`)}}
 								selectedIcon={{uri:require(`./img/${v.icon}-active.png`)}}
 								selected={pathname===v.path}
+								badge={v.path==='/dashboard/msg'?unread:0}
 								onPress={()=>this.props.history.push(v.path)}
 							></TabBar.Item>
 						))
@@ -90,7 +102,15 @@ class Dashboard extends React.Component {
 				</TabBar>
       </div>
     )
-  }
+	}
+	
+	componentDidMount(){
+		// this.props.getChatMsg()
+		const {chatmsg} = this.props
+		if(!(chatmsg.size>0)){
+			this.props.recvMsg()
+		}
+	}
 }
 
 export default Dashboard

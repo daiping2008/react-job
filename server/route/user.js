@@ -4,7 +4,7 @@ const User = require('../db/models/user')
 
 const {md5} = require('../utils/utils')
 
-const USER_ID = 'userid'
+const cookiesKey = require('../utils/cookiesKeys')
 
 // 把密码过滤掉
 const _filter = {pwd:0,_v:0} 
@@ -12,13 +12,13 @@ const _filter = {pwd:0,_v:0}
 router.prefix('/user')
 
 router.get('/', async ctx => {
-  const person = await User.find({})
+  const person = await User.find({}, _filter)
   ctx.body = person
 })
 
 router.get('/list', async ctx => {
   const {type} = ctx.request.query
-  const res = await User.find({type})
+  const res = await User.find({type},_filter)
   return ctx.body = {
     code:0,
     data: res
@@ -27,7 +27,7 @@ router.get('/list', async ctx => {
 
 router.post('/update', async ctx=> {
   const body = ctx.request.body
-  const userid = ctx.cookies.get(USER_ID)
+  const userid = ctx.cookies.get(cookiesKey.USER_ID)
   if (!userid) {
     return ctx.body={code:1}
   }
@@ -48,7 +48,7 @@ router.post('/update', async ctx=> {
 })
 
 router.get('/info', async ctx => {
-  const userid = ctx.cookies.get(USER_ID)
+  const userid = ctx.cookies.get(cookiesKey.USER_ID)
   if(!userid) {
     return ctx.body = {
       code:1,
@@ -85,7 +85,7 @@ router.post('/login', async ctx => {
       msg:'密码错误'
     }
   }
-  ctx.cookies.set(USER_ID, res._id)
+  ctx.cookies.set(cookiesKey.USER_ID, res._id)
   return ctx.body = {
     code:0,
     data:Object.assign(res, _filter)
@@ -105,7 +105,7 @@ router.post('/register', async ctx => {
 
   try {
     const res = await user.save()
-    ctx.cookies.set(USER_ID, res._id)
+    ctx.cookies.set(cookiesKey.USER_ID, res._id)
     return ctx.body = {
       code:0,
       data:Object.assign(res, _filter)

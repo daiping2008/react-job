@@ -28,9 +28,9 @@ export const sendMsg = ({from, to, content}) => {
   }
 }
 
-export const getChatMsg = () => {
+export const getChatMsg = ({from, to}) => {
   return async dispatch => {
-    const {data} = await axios.get('/chat')
+    const {data} = await axios.get(`/chat?from=${from}&to=${to}`)
     return dispatch(setChatmsg(data.data))
   }
 }
