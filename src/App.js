@@ -8,7 +8,7 @@ import Login from './views/login/login'
 import Register from './views/register/register'
 import Dashboard from './views/dashboard/dashboard'
 import Authroute from './components/authroute'
-
+import Chat from './views/chat/chat'
 import './assets/styles/global.scss'
 
 function App() {
@@ -21,6 +21,7 @@ function App() {
             <Route path='/login' component={Login} />
             <Route path='/register' component={Register} />
             <Route path='/dashboard' component={Dashboard} />
+            <Route path='/chat/:username' component={Chat} />
             <Route path='/' component={Login} />
           </Switch>
         </div>

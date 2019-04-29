@@ -8,7 +8,6 @@ export default function HocForm(Comp) {
       this.handlerChange = this.handlerChange.bind(this)
     }
     handlerChange(key, value){
-      console.log(key, value)
       this.setState({[key]: value})
     }
     render() {

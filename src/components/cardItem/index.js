@@ -1,11 +1,13 @@
 import React,{Fragment} from 'react'
 import {Card, WhiteSpace} from 'antd-mobile'
+import {withRouter} from 'react-router-dom'
+@withRouter
 class CardItem extends React.Component {
   render() {
     const {data} = this.props
     return (
       <Fragment>
-        <Card onClick={()=>console.log(1)}>
+        <Card onClick={()=>this.props.history.push(`/chat/${data._id}`)}>
           <Card.Header
             title={data.username}
             thumb={require(`../../assets/img/avators/${data.avator?data.avator:'boy'}.png`)}

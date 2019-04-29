@@ -1,5 +1,4 @@
-import React, {Fragment} from 'react'
-import {Card, WhiteSpace} from 'antd-mobile'
+import React from 'react'
 import {connect} from 'react-redux'
 import CartItem from '../../../components/cardItem'
 import {actionCreator} from '../../../store/dashboard'

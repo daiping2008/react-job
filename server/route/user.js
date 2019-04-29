@@ -1,6 +1,6 @@
 const router = require('koa-router')()
 
-const User = require('../models/user')
+const User = require('../db/models/user')
 
 const {md5} = require('../utils/utils')
 
@@ -11,7 +11,6 @@ const _filter = {pwd:0,_v:0}
 
 router.prefix('/user')
 
-// 测试代码之后删除
 router.get('/', async ctx => {
   const person = await User.find({})
   ctx.body = person
@@ -72,6 +71,7 @@ router.get('/info', async ctx => {
 
 router.post('/login', async ctx => {
   const {username, pwd} = ctx.request.body
+  console.log({username,pwd})
   const res = await User.findOne({username})
   if(!res) {
     return ctx.body = {
