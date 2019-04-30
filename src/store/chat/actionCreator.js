@@ -14,6 +14,19 @@ export const setMsg = data => ({
   data:fromJS(data)
 })
 
+export const setUnread = ({unread, msg}) => ({
+  type: actionTypes.SET_UNREAD,
+  unread: fromJS(unread),
+  msg: fromJS(msg)
+})
+
+export const getUnreadInfo = () => {
+  return async dispatch => {
+    const {data} = await axios.get('/chat/unreadInfo')
+    return dispatch(setUnread({unread:data.data.unread, msg:data.data.msg}))
+  }
+}
+
 export const recvMsg = () => {
   return dispatch => {
     socket.on('recvmsg', data => {
@@ -30,7 +43,7 @@ export const sendMsg = ({from, to, content}) => {
 
 export const getChatMsg = ({from, to}) => {
   return async dispatch => {
-    const {data} = await axios.get(`/chat?from=${from}&to=${to}`)
+    const {data} = await axios.get(`/chat/getMsg?from=${from}&to=${to}`)
     return dispatch(setChatmsg(data.data))
   }
 }

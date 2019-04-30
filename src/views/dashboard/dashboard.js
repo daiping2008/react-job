@@ -7,12 +7,9 @@ import {connect} from 'react-redux'
 import User from './components/user'
 import BossList from './components/bossList'
 import GeniusList from './components/geniusList'
+import Msg from './components/msg'
 
 import {actionCreator} from '../../store/chat'
-
-function Msg(params) {
-	return <h1>MSG</h1>
-}
 
 const mapStateToProps = state => {
 	return {
@@ -24,11 +21,11 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
 	return {
-		getChatMsg() {
-			return dispatch(actionCreator.getChatMsg())
-		},
 		recvMsg() {
 			return dispatch(actionCreator.recvMsg())
+		},
+		getUnreadInfo() {
+			return dispatch(actionCreator.getUnreadInfo())
 		}
 	}
 }
@@ -110,6 +107,7 @@ class Dashboard extends React.Component {
 		if(!(chatmsg.size>0)){
 			this.props.recvMsg()
 		}
+		this.props.getUnreadInfo()
 	}
 }
 
